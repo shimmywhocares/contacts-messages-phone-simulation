@@ -16,24 +16,23 @@ public class Phone {
 
 
 
-
-    public void showAllContacts() {
-        for (Contact contacts : contactArrayList) {
-            System.out.println(contacts.getName() + contacts.getNumber() + contacts.getEmail());
-        }
-    }
-
-    //czy to w ogole ma racje bytu xD
     public void addNewContact(String name, long number, String email) {
         contactArrayList.add(new Contact(name, number, email, new ArrayList<>()));
     }
 
-
+    // TODO: what if in my ContactArrayList is more objects with the same name?
+    //  get getContactArrayList() vs ContactArrayList
     public Contact searchForContact(String query) {
+        for (Contact c : getContactArrayList()) {
+            if (c.getName().equals(query))
+                return c;
+        }
         return null;
     }
 
-
+    public void deleteContact(String trash) {
+        contactArrayList.remove(searchForContact(trash));
+    }
 
 
     public String getModel() {
