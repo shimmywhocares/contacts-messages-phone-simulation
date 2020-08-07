@@ -2,15 +2,6 @@ package com.whocares.shimmy;
 
 import java.util.ArrayList;
 
-//5:01:00
-/** Options:
- *      1. Show all contacts
- *      2. Add a new contact
- *      3. Search for a contact
- *      4. Delete a contact
- *      5. Go back to the previous menu
- */
-
 public class Contact {
     private String name;
     private long number;
@@ -23,6 +14,17 @@ public class Contact {
         this.number = number;
         this.email = email;
         this.messageArrayList = messageArrayList;
+    }
+
+
+//    public void showMessages(String name){
+//        for (Message m : getMessageArrayList()) {
+//            System.out.println(m.getSender() + ", " + m.getText() );
+//        }
+//    }
+
+    public void youGetSMS(String sender, String text){
+        this.messageArrayList.add(new Message(sender, "Me", text));
     }
 
     public String getName() {

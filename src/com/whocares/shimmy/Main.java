@@ -28,7 +28,7 @@ public class Main {
         System.out.println("Hello " + phone.getOwner() + "!");
         System.out.println("Tell me what you want to do: " +
                 "\n\t 1. Manage contacts" +
-                "\n\t 2. Messages" +
+                "\n\t 2. Manage messages" +
                 "\n\t ANY. Quit");
     }
 
@@ -80,11 +80,10 @@ public class Main {
                 break;
             case "2":
                 // here I had a short wondering - can I get past declaratione of variables here
-                phone.addNewContact("Seba", 777066601, "mlodyszatan@lubieplacki.com");
+                phone.addNewContact("Seba", 666777666, "mlodyszatan@lubieplacki.com");
 
                 long number;
                 String email;
-
 
                 System.out.print("New Contact " + "\n\t Name: ");
                 String name = readString();
@@ -102,7 +101,7 @@ public class Main {
                 System.out.print("Type who you searching for: ");
                 String query;
                 query = readString();
-                System.out.println(phone.searchForContact(query).getName()  + ", " +
+                System.out.println(phone.searchForContact(query).getName() + ", " +
                         phone.searchForContact(query).getNumber() + ", " +
                         phone.searchForContact(query).getEmail());
                 break;
@@ -122,10 +121,15 @@ public class Main {
         String choice = scanner.next();
         switch (choice) {
             case "1":
-
+                showMessages(phone);
                 break;
 
             case "2":
+                typeSMS(phone);
+                break;
+
+            case "666":
+                youGetSMSfromSeba(phone);
                 break;
 
             default:
@@ -142,10 +146,44 @@ public class Main {
             System.out.println(c.getName() + ", " + c.getNumber() + ", " + c.getEmail());
         }
     }
-    private static String readString()
-    {
+
+    //Ver allInOne
+    public static void showMessages(Phone phone) {
+        for (Contact c : phone.getContactArrayList()) {
+            for (Message m : c.getMessageArrayList()) {
+                System.out.println(m.getSender() + " to " + m.getReceiver() + ": \t" + m.getText());
+            }
+        }
+        //System.out.println("\n");
+    }
+
+    //Ver single
+    public static void showMessagesOfQueriedContact(Phone phone) {
+        System.out.println("Show messages form: ");
+        String query = readString();
+        for (Message m : phone.searchForContact(query).getMessageArrayList()) {
+            System.out.println(m.getSender() + " to " + m.getReceiver() + ": \t" + m.getText());
+        }
+    }
+
+    private static String readString() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public static void typeSMS(Phone phone){
+        System.out.print("Type to: \t");
+        String receiver = readString();
+        System.out.print("Text: \t");
+        String text = readString();
+        phone.sendSMS(receiver, text);
+    }
+
+    public static void youGetSMSfromSeba(Phone phone) {
+        phone.searchForContact("Seba").getMessageArrayList().add(
+                new Message("Seba", "Me", "Tylko jedno w głowie mam..."));
+        phone.searchForContact("Seba").getMessageArrayList().add(
+                new Message("Seba", "Me", "Koksu 5 gram!"));
     }
 }
 

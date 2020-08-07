@@ -1,7 +1,15 @@
 package com.whocares.shimmy;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+//5:01:00
+/** Options:
+ *      1. Show all contacts
+ *      2. Add a new contact
+ *      3. Search for a contact
+ *      4. Delete a contact
+ *      5. Go back to the previous menu
+ */
 
 public class Phone {
     private String model;
@@ -14,11 +22,15 @@ public class Phone {
         this.contactArrayList = contactArrayList;
     }
 
-
-
     public void addNewContact(String name, long number, String email) {
         contactArrayList.add(new Contact(name, number, email, new ArrayList<>()));
     }
+
+    public void sendSMS(String receiver, String text){
+                searchForContact(receiver).getMessageArrayList().add(new Message("Me", receiver, text));
+    }
+
+
 
     // TODO: what if in my ContactArrayList is more objects with the same name?
     //  get getContactArrayList() vs ContactArrayList
